@@ -54,7 +54,7 @@
                 <div class="app-brand demo">
                     <a href="{{ route('admin_dashboard') }}" class="app-brand-link">
                         <img src="/logo/fabricon.png" style="max-width:50px;" alt="">
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">Project</span>
+                        <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin</span>
                     </a>
 
                     <a href="{{ route('admin_dashboard') }}"
@@ -67,8 +67,8 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item">
-                        <a href="{{ route('admin_dashboard') }}" class="menu-link">
+                    <li class="menu-item {{ Request::routeIs('admin_dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('admin_dashboard') }}" class="menu-link ">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
