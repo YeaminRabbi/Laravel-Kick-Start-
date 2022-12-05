@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleManagementController;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -40,6 +42,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
     Route::get('/profile/edit', [ProfileController::class, 'profile_edit'])->name('profile_edit');
     Route::post('/profile/update', [ProfileController::class, 'profile_update'])->name('profile_update');
 
-  
-
+    Route::get('/role-management', [RoleManagementController::class, 'index'])->name('role_management');
+    Route::post('/role-management/add', [RoleManagementController::class, 'role_add'])->name('role_add');
+    Route::get('/role-management/delete/{id}', [RoleManagementController::class, 'role_delete'])->name('role_delete');
+    Route::post('/role-management/update', [RoleManagementController::class, 'role_update'])->name('role_update');
+    Route::get('/get-role/{id}', [RoleManagementController::class, 'get_role'])->name('get_role');
+    
+    Route::post('/permission-management/add', [RoleManagementController::class, 'permission_add'])->name('permission_add');
+    Route::get('/permission-management/delete/{id}', [RoleManagementController::class, 'permission_delete'])->name('permission_delete');
+    Route::post('/permission-management/update', [RoleManagementController::class, 'permission_update'])->name('permission_update');
+    Route::get('/get-permission/{id}', [RoleManagementController::class, 'get_permission'])->name('get_permission');
+    
+    
 });

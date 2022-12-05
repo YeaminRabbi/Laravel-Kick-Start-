@@ -78,8 +78,8 @@
                         <span class="menu-header-text">Activities</span>
                     </li>
 
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item {{ Request::routeIs('role_management') ? 'active' : '' }}">
+                        <a href="{{ route('role_management') }}" class="menu-link">
                             <i class="menu-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -87,7 +87,7 @@
                                         d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
                                 </svg>
                             </i>
-                            <div data-i18n="Analytics">Product</div>
+                            <div data-i18n="Analytics">Role Management</div>
                         </a>
                     </li>
 
@@ -189,8 +189,8 @@
                         <div
                             class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
-                                © 2022, developed with by <a href="https://techstringit.com/" target="_blank"
-                                    class="footer-link fw-bolder">TechString IT</a>
+                                © 2022, developed with <i class="fa fa-heart" style="color: red;"></i> by <a href="https://techstringit.com/" target="_blank"
+                                    class="footer-link fw-bolder">Rabbi</a>
                             </div>
 
                         </div>
