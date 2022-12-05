@@ -53,5 +53,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
     Route::post('/permission-management/update', [RoleManagementController::class, 'permission_update'])->name('permission_update');
     Route::get('/get-permission/{id}', [RoleManagementController::class, 'get_permission'])->name('get_permission');
     
+    Route::post('/role-permission-assign', [RoleManagementController::class, 'role_permission_assign'])->name('role_permission_assign');
+
     
 });

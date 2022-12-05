@@ -206,7 +206,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Role-Permissions</h5>
-                    <button class="btn btn-sm btn-primary" onclick="show('RoleTable','RoleForm')">Add New</button>
+                    {{-- <button class="btn btn-sm btn-primary" onclick="show('RoleTable','RoleForm')">Add New</button> --}}
                 </div>
                 <div class="table-responsive text-nowrap">
                     <table class="table">
@@ -227,7 +227,7 @@
                                             <td>
                                                 @if (isset($data->permissions))
                                                     @foreach ($data->permissions as $item)
-                                                        <strong>{{ $item->name }}</strong>
+                                                        <span class="badge bg-label-primary me-1" style="font-size:10px">{{ $item->name }}</span>  
                                                     @endforeach
                                                 @endif
                                             </td>                                        
@@ -251,14 +251,15 @@
                     <h3 id="RoleNameToAssign"> </h3>
                 </div>
 
+                
                 <div class="card-body">
-                    <form action="{{ route('role_update') }}" method="POST">
+                    <form action="{{ route('role_permission_assign') }}" method="POST">
                         @csrf
-
+                        <input type="hidden" name="role_id" id="SelectedROLE">
                         @if ($permissions->isNotEmpty())
                             @foreach ($permissions as $key => $item)
                                 <div class="col-md-12">
-                                    <input type="checkbox" class="mr-4" name="selected_permission" id="CheckListPermission-{{ $key }}" value="{{ $item->id }}">
+                                    <input type="checkbox" class="mr-4" name="selected_permission[]" id="CheckListPermission-{{ $key }}" value="{{ $item->id }}">
         
                                     <label for="CheckListPermission-{{ $key }}">{{ $item->name }}</label>
                                 </div>
@@ -267,7 +268,7 @@
                         <div class="row justify-content-start mt-3">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
-                                <button class="btn btn-dark btn-sm" onclick="show('RoleEditForm','RoleTable')">Back</button>
+                                {{-- <button class="btn btn-dark btn-sm" onclick="show('RoleEditForm','RoleTable')">Back</button> --}}
                             </div>
                         </div>
                     </form>
@@ -345,8 +346,10 @@
             document.getElementById(x).style = 'block';
 
             document.getElementById('RoleNameToAssign').innerHTML= name;
-            // document.getElementById("RoleNameToAssign").innerHTML = "hello World";
-            console.log(name)
+            document.getElementById('SelectedROLE').value= id;
+
+
+
         
         }
     </script>

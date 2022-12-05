@@ -107,4 +107,19 @@ class RoleManagementController extends Controller
 
         return back()->with('success', 'Successfully Role has been updated!');
     }
+
+
+
+
+    function role_permission_assign(Request $req)
+    {
+        $req->validate([
+            'role_id' => 'required',
+            'selected_permission' => 'required'
+        ]);
+
+        $role = Role::findById($req->role_id);
+        $role->givePermissionTo($req->selected_permission);
+        return back()->with('success', 'Successfully Permission Assigned!');
+    }
 }
