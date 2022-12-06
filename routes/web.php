@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleManagementController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -54,6 +54,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
     Route::get('/get-permission/{id}', [RoleManagementController::class, 'get_permission'])->name('get_permission');
     
     Route::post('/role-permission-assign', [RoleManagementController::class, 'role_permission_assign'])->name('role_permission_assign');
+    Route::get('/role-permission-revoke/{id}', [RoleManagementController::class, 'role_permission_revoke'])->name('role_permission_revoke');
 
+    Route::resource('users', UserController::class);
     
 });

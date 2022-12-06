@@ -122,4 +122,13 @@ class RoleManagementController extends Controller
         $role->givePermissionTo($req->selected_permission);
         return back()->with('success', 'Successfully Permission Assigned!');
     }
+
+    function role_permission_revoke($id)
+    {
+        $role = Role::findById($id);
+        $role->syncPermissions([]);
+
+        return back()->with('success', 'Permission Revoked from the role!');
+
+    }
 }

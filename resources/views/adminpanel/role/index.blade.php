@@ -206,7 +206,6 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Role-Permissions</h5>
-                    {{-- <button class="btn btn-sm btn-primary" onclick="show('RoleTable','RoleForm')">Add New</button> --}}
                 </div>
                 <div class="table-responsive text-nowrap">
                     <table class="table">
@@ -232,8 +231,8 @@
                                                 @endif
                                             </td>                                        
                                             <td>
-                                                {{-- <a onclick="editRoleContent({{ $data->id }}, 'RoleTable', 'RoleEditForm')" class="btn btn-sm btn-warning"><i class="fa fa-pencil" style="color: white;"></i></a> --}}
                                                 <a onclick="AssignPermission({{ $data->id }},'{{ $data->name }}', 'PermissionList')" class="btn btn-sm btn-dark" style="color: white;">Assign Permission</i></a>
+                                                <a href="{{ route('role_permission_revoke', $data->id) }}" class="btn btn-sm btn-danger">Revoke Permissions</a>
                                             </td>
                                         </tr>
                                 @endforeach
@@ -268,7 +267,6 @@
                         <div class="row justify-content-start mt-3">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
-                                {{-- <button class="btn btn-dark btn-sm" onclick="show('RoleEditForm','RoleTable')">Back</button> --}}
                             </div>
                         </div>
                     </form>
@@ -346,11 +344,9 @@
             document.getElementById(x).style = 'block';
 
             document.getElementById('RoleNameToAssign').innerHTML= name;
-            document.getElementById('SelectedROLE').value= id;
-
-
-
-        
+            document.getElementById('SelectedROLE').value= id;       
         }
+
+       
     </script>
 @endsection
