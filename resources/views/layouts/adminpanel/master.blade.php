@@ -11,7 +11,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('logo/fabricon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.png') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -202,7 +202,7 @@
                             class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
                                 © 2022, developed with <i class="fa fa-heart" style="color: red;"></i> by <a href="https://techstringit.com/" target="_blank"
-                                    class="footer-link fw-bolder">Rabbi</a>
+                                    class="footer-link fw-bolder">Techstring IT</a>
                             </div>
 
                         </div>
