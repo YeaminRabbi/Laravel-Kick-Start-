@@ -73,7 +73,7 @@
                         <div class="row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                                <button class="btn btn-dark btn-sm" onclick="show('RoleForm','RoleTable')">Back</button>
+                                <a class="btn btn-dark btn-sm" onclick="show('RoleForm','RoleTable')" style="color: white;">Back</a>
                             </div>
                         </div>
                     </form>
@@ -101,7 +101,7 @@
                         <div class="row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
-                                <button class="btn btn-dark btn-sm" onclick="show('RoleEditForm','RoleTable')">Back</button>
+                                <a class="btn btn-dark btn-sm" onclick="show('RoleEditForm','RoleTable')" style="color: white;">Back</a>
                             </div>
                         </div>
                     </form>
@@ -171,6 +171,7 @@
             </div>
         </div>
 
+
         <div class="col-md-12 col-lg-6" id="PermissionEditForm" style="display: none;">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
@@ -191,7 +192,7 @@
                         <div class="row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
-                                <button class="btn btn-dark btn-sm" onclick="show('PermissionEditForm','PermissionTable')">Back</button>
+                                <a class="btn btn-dark btn-sm" onclick="show('PermissionEditForm','PermissionTable')" style="color: white;">Back</a>
                             </div>
                         </div>
                     </form>
@@ -231,7 +232,7 @@
                                                 @endif
                                             </td>                                        
                                             <td>
-                                                <a onclick="AssignPermission({{ $data->id }},'{{ $data->name }}', 'PermissionList')" class="btn btn-sm btn-dark" style="color: white;">Assign Permission</i></a>
+                                                <a onclick="AssignPermission({{ $data->id }},'{{ $data->name }}')" class="btn btn-sm btn-dark" style="color: white;">Assign Permission</i></a>
                                                 <a href="{{ route('role_permission_revoke', $data->id) }}" class="btn btn-sm btn-danger">Revoke Permissions</a>
                                             </td>
                                         </tr>
@@ -243,13 +244,18 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-lg-4" style="display: none;" id="PermissionList">
+
+        <div id="PermissionList_New" style="display: none;" class="col-md-6 col-lg-4">
+
+        </div>
+
+
+        {{-- <div class="col-md-6 col-lg-4" style="display: none;" id="PermissionList">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Assign Permissions</h5>
                     <h3 id="RoleNameToAssign"> </h3>
                 </div>
-
                 
                 <div class="card-body">
                     <form action="{{ route('role_permission_assign') }}" method="POST">
@@ -272,7 +278,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
     </div>
@@ -339,12 +345,61 @@
             });
         }
 
-        function AssignPermission(id,name,x)
+        function AssignPermission(role_id,role_name)
         {
-            document.getElementById(x).style = 'block';
 
-            document.getElementById('RoleNameToAssign').innerHTML= name;
-            document.getElementById('SelectedROLE').value= id;       
+            let BaseUrl = window.location.origin;
+            let apiURL = '/admin/fetch-permissions-by-role/' + role_id;
+            let role_has_permission = {};
+            let permission_list = {};
+            $.ajax({
+                url: apiURL,
+                method: "GET",
+                success: function(data) {
+                    // console.log(data)
+                    role_has_permission = data.role_has_permission;
+                    permission_list = data.permission_list;
+
+                    const role_has_permission_ids = Object.values(role_has_permission).map(item => item.id);
+                    // console.log(role_has_permission_ids)
+                    var form_data = `
+                        <div class="card mb-4">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0">Assign Permissions</h5>
+                                <h3 id="RoleNameToAssign"> ` + role_name + ` </h3>
+                            </div>
+                            
+                            <div class="card-body">
+                                <form action="{{ route('role_permission_assign') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="role_id" id="SelectedROLE" value=` + role_id + `>
+                                    ` +
+                                        permission_list.map((item, index) => {
+                                            return `
+                                                <div class="col-md-12">
+                                                    <input type="checkbox" class="mr-4" name="selected_permission[]" id="CheckListPermission-${index}" value="${item.id}" ${role_has_permission_ids.includes(item.id) ? 'checked' : ''}>
+                                                    <label for="CheckListPermission-${index}">${item.name}</label>
+                                                </div>
+                                            `;
+                                        }).join('')
+                                    + `
+                                    <div class="row justify-content-start mt-3">
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>`;
+
+                    document.getElementById('PermissionList_New').style.display = 'block';
+                    document.getElementById('PermissionList_New').innerHTML = form_data;
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error("Error fetching data:", errorThrown);
+                }
+            });
+   
         }
 
        

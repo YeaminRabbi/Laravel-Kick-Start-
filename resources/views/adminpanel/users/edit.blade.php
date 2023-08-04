@@ -47,18 +47,9 @@
                             <label class="col-sm-2 col-form-label" for="basic-default-phone">Phone <span style="color: red;">*</span></label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="basic-default-phone" placeholder="Enter Phone"
-                                    name="phone" value="{{ $user->phone  ?? ''}}" required/>
+                                    name="phone" value="{{ $user->phone  ?? ''}}" />
                             </div>
                         </div>
-
-
-                        {{-- <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-editor">Details</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" name="details" id="basic-default-editor" cols="30" rows="10">{{ $user->details ?? '' }}</textarea>
-                            </div>
-                        </div> --}}
-                       
 
                         <div class="row mb-3">
 

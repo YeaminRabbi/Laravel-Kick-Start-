@@ -24,7 +24,7 @@
                             <label class="col-sm-2 col-form-label" for="basic-default-phone">Phone</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="basic-default-phone"
-                                    placeholder="017*******" value="{{ $user->phone }}" name="phone" required />
+                                    placeholder="017*******" value="{{ $user->phone }}" name="phone" />
                             </div>
                         </div>
                         <div class="row mb-3">
