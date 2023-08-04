@@ -35,8 +35,6 @@ Route::post('/user-login', [LoginController::class, 'LOGIN'])->name('LOGIN');
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], function() {
     
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');
-    
-
 
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'profile_edit'])->name('profile_edit');
@@ -57,5 +55,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
     Route::get('/role-permission-revoke/{id}', [RoleManagementController::class, 'role_permission_revoke'])->name('role_permission_revoke');
 
     Route::resource('users', UserController::class);
+    
     
 });
