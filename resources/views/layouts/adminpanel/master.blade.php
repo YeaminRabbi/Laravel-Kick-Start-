@@ -78,6 +78,7 @@
                         <span class="menu-header-text">Activities</span>
                     </li>
 
+                   @if (Auth::user()->hasrole('admin'))
                     <li class="menu-item {{ Request::routeIs('role_management') ? 'active' : '' }}">
                         <a href="{{ route('role_management') }}" class="menu-link">
                             <i class="menu-icon">
@@ -90,6 +91,7 @@
                             <div data-i18n="Analytics">Role Management</div>
                         </a>
                     </li>
+                   @endif
 
                     <li class="menu-item {{ Request::routeIs('users.*') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class="menu-link">

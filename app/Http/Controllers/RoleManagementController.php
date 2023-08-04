@@ -60,16 +60,13 @@ class RoleManagementController extends Controller
     }
 
 
-
-
-
-
     function permission_add(Request $request)
     {
         $request->validate([
             'name' => 'required',
         ]);
-        Permission::create(['name' =>  strtolower($request->name)]);
+
+        Permission::create(['name' =>  str_replace(' ', '-', strtolower(trim($request->name)))]);
         return back()->with('success', 'Successfully Permission has been created!');
     }
 
@@ -102,7 +99,7 @@ class RoleManagementController extends Controller
             'permission_id' => 'required'
         ]);
         $permission = Permission::findById($request->permission_id);
-        $permission->name = strtolower($request->name);
+        $permission->name =  str_replace(' ', '-', strtolower(trim($request->name)));
         $permission->save();
 
         return back()->with('success', 'Successfully Role has been updated!');
@@ -119,6 +116,7 @@ class RoleManagementController extends Controller
         ]);
 
         $role = Role::findById($req->role_id);
+        $role->syncPermissions([]);
         $role->givePermissionTo($req->selected_permission);
         return back()->with('success', 'Successfully Permission Assigned!');
     }
@@ -131,4 +129,34 @@ class RoleManagementController extends Controller
         return back()->with('success', 'Permission Revoked from the role!');
 
     }
+
+
+    function fetch_permissions($id)
+    {
+        $role = Role::findById($id);
+        $permissions = $role->permissions;
+
+        $permission_list = Permission::get();
+
+        $permission_list = $permission_list->map(function ($permission) {
+            return [
+              'id' => $permission->id,
+              'name' => $permission->name,
+            ];
+        });
+
+        $permissions = $permissions->map(function ($permission) {
+            return [
+              'id' => $permission->id,
+              'name' => $permission->name,
+            ];
+        });
+
+        return response()->json([
+            'role_has_permission' => $permissions,
+            'permission_list'=> $permission_list
+        ]);
+
+    }
+
 }

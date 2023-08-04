@@ -51,7 +51,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
     Route::get('/permission-management/delete/{id}', [RoleManagementController::class, 'permission_delete'])->name('permission_delete');
     Route::post('/permission-management/update', [RoleManagementController::class, 'permission_update'])->name('permission_update');
     Route::get('/get-permission/{id}', [RoleManagementController::class, 'get_permission'])->name('get_permission');
+    Route::get('/fetch-permissions-by-role/{id}', [RoleManagementController::class, 'fetch_permissions'])->name('fetch_permissions_by_role');
     
+
     Route::post('/role-permission-assign', [RoleManagementController::class, 'role_permission_assign'])->name('role_permission_assign');
     Route::get('/role-permission-revoke/{id}', [RoleManagementController::class, 'role_permission_revoke'])->name('role_permission_revoke');
 

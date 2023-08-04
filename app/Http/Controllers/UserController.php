@@ -47,7 +47,6 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|string',
-            'phone' => 'required|string',            
             'password' => 'required|string', 
             'file' => 'required',   
             'role' => 'required'       
@@ -57,7 +56,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
+        $user->phone = $request->phone?? null;
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -116,14 +115,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|string',
-            'phone' => 'required|string',            
         ]);
 
         
         $user = User::with('images')->find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
+        $user->phone = $request->phone ?? null;
 
         if(isset($request->password)){
             $user->password = Hash::make($request->password);

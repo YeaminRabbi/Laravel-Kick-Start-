@@ -28,22 +28,18 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
             'gender' => 'required',            
         ]);
-
-      
 
         $user = Auth::user();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone =  $request->phone;
-        $user->gender =  $request->gender;
+        $user->phone =  $request->phone ?? null;
+        $user->gender =  $request->gender ?? null;
             
         if(isset($request->password)){
             $user->password =  Hash::make($request->password);
             $user->pass =  $request->password;
-            
         }
         $user->save();
 
